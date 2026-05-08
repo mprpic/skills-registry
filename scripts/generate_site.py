@@ -20,6 +20,8 @@ import yaml
 MKDOCS_CONFIG_TEMPLATE = """\
 site_name: OpenDataHub Skills Registry
 site_url: https://opendatahub-io.github.io/skills-registry
+repo_url: https://github.com/opendatahub-io/skills-registry
+repo_name: opendatahub-io/skills-registry
 
 theme:
   name: material
