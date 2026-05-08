@@ -38,6 +38,19 @@ than architecture prescription.
     - **Repository**: [n1hility/assess-rfe](https://github.com/n1hility/assess-rfe)
     - **Tags**: <span class="tag-pill">rfe</span> <span class="tag-pill">rubric</span> <span class="tag-pill">quality</span> <span class="tag-pill">assessment</span>
 
+## Pipeline
+
+<div class="diagram-container" markdown>
+![assess-rfe pipeline](pipeline.svg)
+</div>
+
+## Skills
+
+| Skill | Description | Invocable |
+|-------|-------------|-----------|
+| [`/assess-rfe`](assess-rfe.md) | Assess RFEs against quality criteria using a structured rubric | :material-check: |
+| [`/export-rubric`](export-rubric.md) | Export the assessment rubric | :material-check: |
+
 ## Architecture
 
 The plugin uses an orchestrator/agent pattern. The main assess-rfe skill acts
@@ -58,19 +71,6 @@ conversion, queue management, progress tracking, result parsing, CSV
 generation, and summary statistics). The coordinator never uses shell pipes
 or compound commands, relying instead on structured script output with
 key=value parsing.
-
-## Pipeline
-
-<div class="diagram-container" markdown>
-![assess-rfe pipeline](pipeline.svg)
-</div>
-
-## Skills
-
-| Skill | Description | Invocable |
-|-------|-------------|-----------|
-| [`/assess-rfe`](assess-rfe.md) | Assess RFEs against quality criteria using a structured rubric | :material-check: |
-| [`/export-rubric`](export-rubric.md) | Export the assessment rubric | :material-check: |
 
 ## Installation
 

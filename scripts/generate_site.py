@@ -236,13 +236,6 @@ def generate_plugin_page(plugin: dict, registry: dict, enrichment: dict | None,
     lines.extend(meta)
     lines.append("")
 
-    # Architecture notes from enrichment
-    if enrichment and enrichment.get("architecture_notes"):
-        lines.append("## Architecture")
-        lines.append("")
-        lines.append(enrichment["architecture_notes"].strip())
-        lines.append("")
-
     # Pipeline diagram (only if SVG exists)
     if plugin_dir and (plugin_dir / "pipeline.svg").exists():
         lines.append("## Pipeline")
@@ -284,6 +277,13 @@ def generate_plugin_page(plugin: dict, registry: dict, enrichment: dict | None,
             aname = agent["name"]
             adesc = agent.get("description", "")
             lines.append(f"| {aname} | {adesc} |")
+        lines.append("")
+
+    # Architecture notes from enrichment (at the bottom, before install)
+    if enrichment and enrichment.get("architecture_notes"):
+        lines.append("## Architecture")
+        lines.append("")
+        lines.append(enrichment["architecture_notes"].strip())
         lines.append("")
 
     # Install

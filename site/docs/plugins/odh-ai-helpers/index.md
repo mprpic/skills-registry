@@ -37,28 +37,6 @@ with each stage producing JSON artifacts consumed by the next.
     - **Repository**: [opendatahub-io/ai-helpers](https://github.com/opendatahub-io/ai-helpers)
     - **Tags**: <span class="tag-pill">python-packaging</span> <span class="tag-pill">licensing</span> <span class="tag-pill">dependencies</span> <span class="tag-pill">gitlab</span> <span class="tag-pill">jira</span> <span class="tag-pill">adr</span> <span class="tag-pill">git</span> <span class="tag-pill">automation</span>
 
-## Architecture
-
-The plugin follows a modular architecture with three distinct skill families:
-
-**Python Packaging Toolchain** -- Seven skills that share a common pattern of
-wrapping helper scripts (Python/Bash) and chaining through skill invocations.
-The source-finder locates repositories, the shallow-clone skill provides local
-access, and downstream skills (complexity, license-finder, license-checker,
-env-finder, bug-finder) analyze different facets. The investigator agent
-orchestrates all of them in parallel sub-agents.
-
-**vLLM Backport Pipeline** -- Eight skills forming a linear data pipeline.
-Each produces a JSON artifact (raw-prs.json -> filtered.json -> candidates.json
--> analyzed.json -> ranked.json -> cherry-pick-result.json) consumed by the
-next stage. The pipeline combines deterministic script-based steps with
-agent-driven semantic analysis for unclear classifications.
-
-**Utility Skills** -- Standalone skills (adr-review, gitlab-pipeline-debugger,
-jira-upload-chat-log, git-shallow-clone) that operate independently with no
-inter-skill dependencies. The adr-review skill uses six parallel reviewer
-sub-agents with human-in-the-loop correction before synthesis.
-
 ## Pipeline
 
 <div class="diagram-container" markdown>
@@ -94,6 +72,28 @@ sub-agents with human-in-the-loop correction before synthesis.
 | Agent | Description |
 |-------|-------------|
 | python-packaging-investigator | Investigates Python package repositories to analyze build systems, dependencies, and packaging complexity |
+
+## Architecture
+
+The plugin follows a modular architecture with three distinct skill families:
+
+**Python Packaging Toolchain** -- Seven skills that share a common pattern of
+wrapping helper scripts (Python/Bash) and chaining through skill invocations.
+The source-finder locates repositories, the shallow-clone skill provides local
+access, and downstream skills (complexity, license-finder, license-checker,
+env-finder, bug-finder) analyze different facets. The investigator agent
+orchestrates all of them in parallel sub-agents.
+
+**vLLM Backport Pipeline** -- Eight skills forming a linear data pipeline.
+Each produces a JSON artifact (raw-prs.json -> filtered.json -> candidates.json
+-> analyzed.json -> ranked.json -> cherry-pick-result.json) consumed by the
+next stage. The pipeline combines deterministic script-based steps with
+agent-driven semantic analysis for unclear classifications.
+
+**Utility Skills** -- Standalone skills (adr-review, gitlab-pipeline-debugger,
+jira-upload-chat-log, git-shallow-clone) that operate independently with no
+inter-skill dependencies. The adr-review skill uses six parallel reviewer
+sub-agents with human-in-the-loop correction before synthesis.
 
 ## Installation
 

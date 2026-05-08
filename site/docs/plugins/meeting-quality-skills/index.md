@@ -29,15 +29,6 @@ be determined, items are flagged as uncertain rather than silently dropped.
     - **Repository**: [ahinek/meeting-quality-skills](https://github.com/ahinek/meeting-quality-skills)
     - **Tags**: <span class="tag-pill">meeting</span> <span class="tag-pill">google-workspace</span> <span class="tag-pill">agenda</span> <span class="tag-pill">async-updates</span> <span class="tag-pill">productivity</span>
 
-## Architecture
-
-The two skills operate independently but form a natural pre-meeting workflow:
-first run meeting-async-update-check to ensure updates are in, then run
-meeting-risk-agenda to build a focused agenda from those updates. Both skills
-are purely prompt-driven with no external tool dependencies — they rely on
-the LLM's ability to parse unstructured document content and apply
-classification heuristics (name matching, risk-signal detection).
-
 ## Pipeline
 
 <div class="diagram-container" markdown>
@@ -50,6 +41,15 @@ classification heuristics (name matching, risk-signal detection).
 |-------|-------------|-----------|
 | [`/meeting-async-update-check`](meeting-async-update-check.md) | Check a shared update doc and identify attendees missing async updates before a status meeting | :material-check: |
 | [`/meeting-risk-agenda`](meeting-risk-agenda.md) | Analyze pre-meeting updates and generate a risk-focused agenda by identifying blocked and at-risk items | :material-check: |
+
+## Architecture
+
+The two skills operate independently but form a natural pre-meeting workflow:
+first run meeting-async-update-check to ensure updates are in, then run
+meeting-risk-agenda to build a focused agenda from those updates. Both skills
+are purely prompt-driven with no external tool dependencies — they rely on
+the LLM's ability to parse unstructured document content and apply
+classification heuristics (name matching, risk-signal detection).
 
 ## Installation
 
