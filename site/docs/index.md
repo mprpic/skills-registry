@@ -10,7 +10,7 @@ hide:
 
 # Skills and plugins for AI-assisted software engineering workflows
 
-8 plugins | 70 skills | 4 categories
+10 plugins | 75 skills | 5 categories
 
 [Getting Started](getting-started.md){ .md-button .md-button--primary }
 
@@ -76,6 +76,22 @@ hide:
 
     **7 skills** · Evaluation & Testing · v0.1.0
 
+-   **[knowledge-skills](plugins/knowledge-skills/index.md)**
+
+    ---
+
+    Autonomous knowledge management skills for keeping AI context files (CLAUDE.md, AGENTS.md) up to date. Scans merged P...
+
+    **1 skills** · Documentation · v0.1.0
+
+-   **[autofix-skills](plugins/autofix-skills/index.md)**
+
+    ---
+
+    Claude Code plugin for the Jira autofix pipeline. Provides orchestrator skills, agent prompt files, and deterministic...
+
+    **4 skills** · Development Tools · v0.1.0
+
 -   **[meeting-quality-skills](plugins/meeting-quality-skills/index.md)**
 
     ---
@@ -89,6 +105,7 @@ hide:
 ## Categories
 
 - [Evaluation & Testing](categories/evaluation.md) — Skills for evaluating and testing AI agent skills (4 plugins)
+- [Documentation](categories/documentation.md) — Skills for generating and maintaining documentation (1 plugin)
 - [Security Review](categories/security.md) — Security analysis, threat modeling, and compliance review (1 plugin)
-- [Development Tools](categories/development-tools.md) — Developer productivity tools for packaging, CI/CD debugging, and workflow automation (1 plugin)
+- [Development Tools](categories/development-tools.md) — Developer productivity tools for packaging, CI/CD debugging, and workflow automation (2 plugins)
 - [Product Planning](categories/planning.md) — Skills for requirements, RFEs, and product strategy (2 plugins)

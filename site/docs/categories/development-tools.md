@@ -16,3 +16,9 @@ Developer productivity tools for packaging, CI/CD debugging, and workflow automa
 Developer productivity tools for Python packaging, CI/CD debugging, and workflow automation. Includes skills for anal...
 
 **19 skills** · v0.1.0
+
+### [autofix-skills](../plugins/autofix-skills/index.md)
+
+Claude Code plugin for the Jira autofix pipeline. Provides orchestrator skills, agent prompt files, and deterministic...
+
+**4 skills** · v0.1.0
