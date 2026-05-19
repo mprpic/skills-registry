@@ -7,7 +7,15 @@ title: autofix-skills
 
 # autofix-skills
 
-Claude Code plugin for the Jira autofix pipeline. Provides orchestrator skills, agent prompt files, and deterministic Python scripts for automated bug fixing, CVE remediation, and ticket triage. Designed to run inside a Claude Code container as part of a CI pipeline.
+Claude Code plugin for the Jira autofix pipeline. Provides orchestrator skills
+for automated bug fixing, CVE remediation, ticket triage, and spike research.
+Designed to run inside a Claude Code container as part of a CI pipeline.
+
+The plugin implements the inner layer of the autofix pipeline — orchestrator
+skills dispatch to sub-agents via prompt files and delegate deterministic work
+to Python scripts. The outer layer (ticket fetching, repo cloning, container
+launch, verdict reading) lives in separate repos (jira-autofix, ai-agentic-lib).
+
 
 !!! info "Plugin Details"
 
@@ -17,6 +25,12 @@ Claude Code plugin for the Jira autofix pipeline. Provides orchestrator skills, 
     - **Category**: [Development Tools](../../categories/development-tools.md)
     - **Repository**: [opendatahub-io/autofix-skills](https://github.com/opendatahub-io/autofix-skills)
     - **Tags**: <span class="tag-pill">autofix</span> <span class="tag-pill">jira</span> <span class="tag-pill">cve</span> <span class="tag-pill">bug-fixing</span> <span class="tag-pill">triage</span> <span class="tag-pill">pipeline</span> <span class="tag-pill">ci-cd</span>
+
+## Pipeline
+
+<div class="diagram-container" markdown>
+![autofix-skills pipeline](pipeline.svg)
+</div>
 
 ## Skills
 
@@ -32,3 +46,21 @@ Claude Code plugin for the Jira autofix pipeline. Provides orchestrator skills, 
 ```bash
 /plugin install autofix-skills@opendatahub-skills
 ```
+
+## Architecture
+
+Four skills form two tiers: orchestrators (autofix-resolve, autofix-cve-resolve)
+and standalone assessors (autofix-triage, autofix-research).
+
+autofix-resolve uses an implement → review → evaluate loop (max 3 iterations)
+with state.py for persistence across context compression. Extension skills are
+discovered via .autofix-context/config.json and called at post-implement and
+post-review hook points.
+
+autofix-cve-resolve uses a Python state machine (cve_pipeline.py) for
+deterministic routing between phases: parse → resolve-repos → scan → fix →
+verify → VEX → review → create-PR → finalize. Each phase dispatches to a
+specialized agent prompt.
+
+All skills write a structured verdict to autofix-output/.autofix-verdict.json
+and treat .autofix-context/ files as untrusted input.
