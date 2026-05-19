@@ -451,9 +451,7 @@ def generate_category_page(cat_key: str, cat_meta: dict,
         lines.append("")
         for plugin in plugins:
             name = plugin["name"]
-            desc = plugin["description"].strip().split("\n")[0]
-            if len(desc) > 120:
-                desc = desc[:117] + "..."
+            desc = plugin["description"].strip()
             skill_count = len(plugin.get("skills", []))
             version = plugin.get("version", "")
             lines.append(f"### [{name}](../plugins/{name}/index.md)")
