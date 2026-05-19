@@ -99,6 +99,26 @@ Tags: evaluation, testing, skills, agents, mlflow, optimization, scoring
 /plugin install agent-eval-harness@opendatahub-skills
 ```
 
+## Documentation
+
+Skills for generating and maintaining documentation
+
+### knowledge-skills
+
+Autonomous knowledge management skills for keeping AI context files (CLAUDE.md, AGENTS.md) up to date. Scans merged PRs, extracts relevant knowledge using parallel agents, and proposes updates as a git-apply-able patch for human review. Supports GitHub and GitLab.
+
+v0.1.0 | Apache-2.0 | [opendatahub-io/knowledge-skills](https://github.com/opendatahub-io/knowledge-skills)
+
+Tags: knowledge, context, claude-md, agents-md, pr-analysis, automation
+
+| Skill | Description |
+|-------|-------------|
+| `/knowledge.repo` | Scan merged PRs and propose updates to AI context files (CLAUDE.md, AGENTS.md) as a git-apply-able patch |
+
+```bash
+/plugin install knowledge-skills@opendatahub-skills
+```
+
 ## Security Review
 
 Security analysis, threat modeling, and compliance review
@@ -162,6 +182,25 @@ Tags: python-packaging, licensing, dependencies, gitlab, jira, adr, git, automat
 
 ```bash
 /plugin install odh-ai-helpers@opendatahub-skills
+```
+
+### autofix-skills
+
+Claude Code plugin for the Jira autofix pipeline. Provides orchestrator skills, agent prompt files, and deterministic Python scripts for automated bug fixing, CVE remediation, and ticket triage. Designed to run inside a Claude Code container as part of a CI pipeline.
+
+v0.1.0 | Apache-2.0 | [opendatahub-io/autofix-skills](https://github.com/opendatahub-io/autofix-skills)
+
+Tags: autofix, jira, cve, bug-fixing, triage, pipeline, ci-cd
+
+| Skill | Description |
+|-------|-------------|
+| `/autofix-resolve` | Orchestrate end-to-end bug fixing via implement and review agent loop (max 3 iterations) |
+| `/autofix-cve-resolve` | CVE remediation across multiple repos with state-machine dispatch |
+| `/autofix-triage` | Assess bug tickets for AI autofix readiness (ready/needs_info/not_fixable) |
+| `/autofix-research` | Investigate spike tickets with no associated repository |
+
+```bash
+/plugin install autofix-skills@opendatahub-skills
 ```
 
 ## Product Planning
