@@ -536,12 +536,12 @@ plugins:
     license: Apache-2.0
     source:
       type: github
-      repo: asanzgom/disconnected-readiness-scorer
+      repo: opendatahub-io/disconnected-readiness-scorer
       ref: f8fbba8c8400caeaa1dd9c7455478aad2bf05b4d
     strict: false
     skills_dir: skills
-    homepage: https://github.com/asanzgom/disconnected-readiness-scorer
-    repository: https://github.com/asanzgom/disconnected-readiness-scorer
+    homepage: https://github.com/opendatahub-io/disconnected-readiness-scorer
+    repository: https://github.com/opendatahub-io/disconnected-readiness-scorer
     skills:
       - name: disconnected-score
         description: Score a repository's readiness for disconnected / air-gapped OpenShift deployments

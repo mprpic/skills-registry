@@ -15,7 +15,7 @@ Score a repository's readiness for disconnected / air-gapped OpenShift deploymen
     - **Author**: asanzgom
     - **License**: Apache-2.0
     - **Category**: [DevOps & CI/CD](../../categories/devops.md)
-    - **Repository**: [asanzgom/disconnected-readiness-scorer](https://github.com/asanzgom/disconnected-readiness-scorer)
+    - **Repository**: [opendatahub-io/disconnected-readiness-scorer](https://github.com/opendatahub-io/disconnected-readiness-scorer)
     - **Tags**: <span class="tag-pill">disconnected</span> <span class="tag-pill">air-gap</span> <span class="tag-pill">openshift</span> <span class="tag-pill">image-mirroring</span> <span class="tag-pill">readiness</span> <span class="tag-pill">scoring</span>
 
 ## Skills
