@@ -31,7 +31,7 @@ python3 scripts/check_versions.py --dry-run
 python3 scripts/validate_registry.py --diff origin/main --validate-remote-plugins
 ```
 
-**Before committing any change to `registry.yaml`**, run all four generators (validate, sync marketplace, generate catalog, generate site). CI checks that every generated file matches — it does not auto-commit.
+**Before committing any change to `registry.yaml`**, run all four generators (validate, sync marketplace, generate catalog, generate site). CI checks that every generated file matches -- it does not auto-commit.
 
 ## Architecture
 

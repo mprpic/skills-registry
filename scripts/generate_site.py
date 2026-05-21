@@ -353,9 +353,9 @@ def generate_skill_page(skill: dict, plugin: dict, enrichment: dict | None,
                 else:
                     parts.append(f"[{name}]")
             hint = " ".join(parts)
-        lines.append(f"```bash")
+        lines.append("```bash")
         lines.append(f"/{sname} {hint}")
-        lines.append(f"```")
+        lines.append("```")
         lines.append("")
         lines.append("| Argument | Required | Default | Description |")
         lines.append("|----------|----------|---------|-------------|")
@@ -363,16 +363,16 @@ def generate_skill_page(skill: dict, plugin: dict, enrichment: dict | None,
             aname = f'`{arg["name"]}`'
             req = ":material-check:" if arg.get("required") else ""
             default = f'`{arg["default"]}`' if arg.get("default") else "-"
-            adesc = arg.get("description", "")
+            adesc = " ".join(arg.get("description", "").split())
             lines.append(f"| {aname} | {req} | {default} | {adesc} |")
         lines.append("")
     elif argument_hint:
         # No enriched arguments but argument-hint exists — parse it as fallback
         lines.append("## Arguments")
         lines.append("")
-        lines.append(f"```bash")
+        lines.append("```bash")
         lines.append(f"/{sname} {argument_hint}")
-        lines.append(f"```")
+        lines.append("```")
         lines.append("")
         lines.append("| Argument | Required | Description |")
         lines.append("|----------|----------|-------------|")
@@ -602,7 +602,7 @@ def generate_llms_full_txt(registry: dict, docs_dir: Path) -> str:
                 for arg in args:
                     aname = arg.get("name", "")
                     req = "yes" if arg.get("required") else ""
-                    adesc = arg.get("description", "")
+                    adesc = " ".join(arg.get("description", "").split())
                     lines.append(f"| `{aname}` | {req} | {adesc} |")
                 lines.append("")
             if examples:

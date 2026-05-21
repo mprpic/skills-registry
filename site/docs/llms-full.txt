@@ -401,8 +401,7 @@ what-if analysis, and near-miss identification).
 
 | Argument | Required | Description |
 |----------|----------|-------------|
-| `input` | yes | The RFE to assess. Accepts multiple formats: a Jira issue key (e.g., RHAIRFE-1234), a file path to a document, a URL, raw pasted text, or a wildcard pattern (e.g., RHAIRFE-*) for bulk assessment of an entire Jira project.
- |
+| `input` | yes | The RFE to assess. Accepts multiple formats: a Jira issue key (e.g., RHAIRFE-1234), a file path to a document, a URL, raw pasted text, or a wildcard pattern (e.g., RHAIRFE-*) for bulk assessment of an entire Jira project. |
 
 Examples:
 ```
