@@ -19,6 +19,6 @@ Claude Code skills for creating, reviewing, and submitting RFEs to the RHAIRFE J
 
 ### [spike-executor](../plugins/spike-executor/index.md)
 
-Execute RHOAI SPIKE investigations with human-in-the-loop approval gates. 9-step lifecycle: intake, plan, Jira sync, AI research enrichment with hallucination detection, pytest test suites on OpenShift, rubric-based scoring with security gates, and RFE generation. Supports both runtime and protocol library evaluations.
+Execute RHOAI SPIKE investigations with human-in-the-loop approval gates. 9-step lifecycle: intake, plan, Jira sync, AI research enrichment with hallucination detection, pytest test suites on OpenShift, rubric-based scoring with security gates, and RFE input generation. Supports both runtime and protocol library assessment.
 
 **1 skills** - v0.2.0

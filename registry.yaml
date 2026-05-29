@@ -540,11 +540,11 @@ plugins:
       Execute RHOAI SPIKE investigations with human-in-the-loop approval gates.
       9-step lifecycle: intake, plan, Jira sync, AI research enrichment with
       hallucination detection, pytest test suites on OpenShift, rubric-based
-      scoring with security gates, and RFE generation. Supports both runtime
-      and protocol library evaluations.
+      scoring with security gates, and RFE input generation. Supports both runtime
+      and protocol library assessment.
     version: "0.2.0"
     category: planning
-    tags: [spike, evaluation, jira, research, scoring, rfe, openshift, rhoai, feasibility]
+    tags: [spike, assessment, jira, research, scoring, rfe, openshift, rhoai, feasibility]
     author:
       name: IKRedHat
     license: Apache-2.0
@@ -566,4 +566,4 @@ plugins:
     python:
       package: spike-executor
       requires_python: ">=3.10"
-    depends_on: [rfe-creator]
+    depends_on: []
