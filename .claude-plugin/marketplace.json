@@ -335,7 +335,7 @@
         "./.claude/skills"
       ],
       "source": {
-        "ref": "main",
+        "ref": "master",
         "repo": "IKRedHat/SPIKE-executor",
         "source": "github"
       },
