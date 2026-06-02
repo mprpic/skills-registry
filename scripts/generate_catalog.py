@@ -39,13 +39,18 @@ def generate_catalog(registry: dict) -> str:
     lines.append("```")
     lines.append("")
 
-    # Group plugins by category
+    # Group plugins by category. Team-scoped plugins are pulled out into a
+    # dedicated section at the end rather than mixed into function categories.
     categories = registry.get("categories", {})
     plugins = registry.get("plugins", [])
     by_category: dict[str, list] = {}
     uncategorized = []
+    team_plugins = []
 
     for plugin in plugins:
+        if plugin.get("scope") == "team":
+            team_plugins.append(plugin)
+            continue
         cat = plugin.get("category")
         if cat and cat in categories:
             by_category.setdefault(cat, []).append(plugin)
@@ -71,6 +76,18 @@ def generate_catalog(registry: dict) -> str:
         lines.append("## Other")
         lines.append("")
         for plugin in uncategorized:
+            lines.extend(render_plugin(plugin, registry["name"]))
+
+    # Team-specific plugins (scope: team) — listed separately at the end
+    if team_plugins:
+        lines.append("## Team-Specific")
+        lines.append("")
+        lines.append(
+            "Plugins hardcoded to a specific team's setup. Not generally reusable "
+            "by other teams without modification."
+        )
+        lines.append("")
+        for plugin in team_plugins:
             lines.extend(render_plugin(plugin, registry["name"]))
 
     return "\n".join(lines)

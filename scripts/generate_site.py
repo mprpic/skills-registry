@@ -94,14 +94,27 @@ def clean_generated(output_dir: Path):
 
 
 def build_category_plugins(registry: dict) -> dict[str, list]:
-    """Group plugins by category key."""
+    """Group plugins by category key. Team-scoped plugins are excluded — they
+    are surfaced in a dedicated Team-Specific section, not function categories."""
     categories = registry.get("categories", {})
     by_cat: dict[str, list] = {k: [] for k in categories}
     for plugin in registry.get("plugins", []):
+        if plugin.get("scope") == "team":
+            continue
         cat = plugin.get("category")
         if cat and cat in by_cat:
             by_cat[cat].append(plugin)
     return by_cat
+
+
+def split_by_scope(plugins: list) -> tuple[list, list]:
+    """Return (shared_plugins, team_plugins) preserving order."""
+    shared = [p for p in plugins if p.get("scope") != "team"]
+    team = [p for p in plugins if p.get("scope") == "team"]
+    return shared, team
+
+
+SCOPE_BADGE = {"team": "Team-specific", "generic": "Generic"}
 
 
 def generate_landing_page(registry: dict, cat_plugins: dict[str, list]) -> str:
@@ -127,12 +140,9 @@ def generate_landing_page(registry: dict, cat_plugins: dict[str, list]) -> str:
     lines.append("")
     lines.append("---")
     lines.append("")
-    lines.append("## Plugins")
-    lines.append("")
-    lines.append('<div class="grid cards" markdown>')
-    lines.append("")
+    shared_plugins, team_plugins = split_by_scope(plugins)
 
-    for plugin in plugins:
+    def render_card(plugin):
         name = plugin["name"]
         desc = plugin["description"].strip().split("\n")[0]
         if len(desc) > 120:
@@ -144,15 +154,33 @@ def generate_landing_page(registry: dict, cat_plugins: dict[str, list]) -> str:
 
         lines.append(f"-   **[{name}](plugins/{name}/index.md)**")
         lines.append("")
-        lines.append(f"    ---")
+        lines.append("    ---")
         lines.append("")
         lines.append(f"    {desc}")
         lines.append("")
         lines.append(f"    **{skill_count} skills** - {cat_name} - v{version}")
         lines.append("")
 
+    lines.append("## Plugins")
+    lines.append("")
+    lines.append('<div class="grid cards" markdown>')
+    lines.append("")
+    for plugin in shared_plugins:
+        render_card(plugin)
     lines.append("</div>")
     lines.append("")
+
+    if team_plugins:
+        lines.append("## Team-Specific Plugins")
+        lines.append("")
+        lines.append("Hardcoded to a specific team's setup — not generally reusable by other teams.")
+        lines.append("")
+        lines.append('<div class="grid cards" markdown>')
+        lines.append("")
+        for plugin in team_plugins:
+            render_card(plugin)
+        lines.append("</div>")
+        lines.append("")
 
     lines.append("## Categories")
     lines.append("")
@@ -177,16 +205,34 @@ def generate_plugins_index(registry: dict) -> str:
     lines.append("")
     lines.append(f"{len(plugins)} plugins registered in the marketplace.")
     lines.append("")
-    lines.append("| Plugin | Category | Skills | Version |")
-    lines.append("|--------|----------|--------|---------|")
-    for plugin in plugins:
+
+    shared_plugins, team_plugins = split_by_scope(plugins)
+
+    def render_row(plugin):
         name = plugin["name"]
         cat_key = plugin.get("category", "")
         cat_name = categories.get(cat_key, {}).get("name", cat_key)
         skill_count = len(plugin.get("skills", []))
         version = plugin.get("version", "")
         lines.append(f"| [{name}]({name}/index.md) | {cat_name} | {skill_count} | v{version} |")
+
+    lines.append("| Plugin | Category | Skills | Version |")
+    lines.append("|--------|----------|--------|---------|")
+    for plugin in shared_plugins:
+        render_row(plugin)
     lines.append("")
+
+    if team_plugins:
+        lines.append("## Team-Specific")
+        lines.append("")
+        lines.append("Hardcoded to a specific team's setup — not generally reusable by other teams.")
+        lines.append("")
+        lines.append("| Plugin | Category | Skills | Version |")
+        lines.append("|--------|----------|--------|---------|")
+        for plugin in team_plugins:
+            render_row(plugin)
+        lines.append("")
+
     return "\n".join(lines)
 
 
@@ -220,6 +266,7 @@ def generate_plugin_page(plugin: dict, registry: dict, enrichment: dict | None,
     # Metadata
     lines.append('!!! info "Plugin Details"')
     lines.append("")
+    scope = plugin.get("scope", "org")
     meta = []
     if version:
         meta.append(f"    - **Version**: {version}")
@@ -227,6 +274,8 @@ def generate_plugin_page(plugin: dict, registry: dict, enrichment: dict | None,
         meta.append(f"    - **Author**: {author}")
     if license_str:
         meta.append(f"    - **License**: {license_str}")
+    if scope in SCOPE_BADGE:
+        meta.append(f"    - **Scope**: {SCOPE_BADGE[scope]}")
     if category:
         meta.append(f"    - **Category**: [{cat_name}](../../categories/{category}.md)")
     if repo:
